@@ -1,11 +1,6 @@
 name: Checks
-
 on:
   - pull_request
-
-env:
-  VUE_APP_FATHOM_SITE_ID: xxx
-  VUE_APP_GA_ID: xxx
 
 jobs:
   Build:
@@ -17,9 +12,9 @@ jobs:
       with:
         node-version: '14.x'
     - name: Install deps
-      run: npm install -g npm@7 && npm ci
+      run: yarn install --frozen-lockfile
     - name: Run build
-      run: npm run build
+      run: yarn build
 
   BuildCDK:
     runs-on: ubuntu-latest
@@ -30,9 +25,9 @@ jobs:
       with:
         node-version: '14.x'
     - name: Install deps
-      run: npm install -g npm@7 && npm ci
+      run: yarn install --frozen-lockfile
     - name: Run build-cdk
-      run: npm run build-cdk
+      run: yarn build-cdk
 
   Lint:
     runs-on: ubuntu-latest
@@ -43,9 +38,9 @@ jobs:
       with:
         node-version: '14.x'
     - name: Install deps
-      run: npm install -g npm@7 && npm ci
+      run: yarn install --frozen-lockfile
     - name: Run lint
-      run: npm run lint
+      run: yarn lint
 
   Test:
     runs-on: ubuntu-latest
@@ -56,11 +51,11 @@ jobs:
       with:
         node-version: '14.x'
     - name: Install deps
-      run: npm install -g npm@7 && npm ci
+      run: yarn install --frozen-lockfile
     - name: Setup DynamoDB Local
       uses: rrainn/dynamodb-action@v2.0.1
       with:
         port: 8000
         cors: '*'
     - name: Run Test
-      run: npm run test
+      run: yarn test

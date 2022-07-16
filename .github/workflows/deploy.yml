@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - master
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -13,13 +14,13 @@ jobs:
       with:
         node-version: '14.x'
     - name: Install deps
-      run: npm install -g npm@7 && npm ci
+      run: yarn install --frozen-lockfile
     - name: Install CDK
       run: npm install -g aws-cdk@2.9.0
     - name: Build Project
-      run: npm run build
+      run: yarn build
     - name: Build CDK Templates
-      run: npm run build-cdk
+      run: yarn build-cdk
     - name: Deploy CDK
       run: |
         cdk deploy --require-approval never
