@@ -20,16 +20,16 @@ export interface Order {
     gasPrice: string;
 }
 
-// price is the price of the native asset (ETH, MATIC, etc) 
-// with the token as the base 
-// e.g. with ETH at $20000, WBTC at $50000 
+// price is the price of the native asset (ETH, MATIC, etc)
+// with the token as the base
+// e.g. with ETH at $20000, WBTC at $50000
 // USDC would be 20000, WBTC would be 0.4
 export interface Token {
     address: string;
     chainId: number;
     decimals: number;
     symbol: string;
-    price: string; 
+    price: string;
     lastUpdate?: number;
     noPriceData?: boolean;
 }

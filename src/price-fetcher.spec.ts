@@ -1,9 +1,7 @@
 import nock from 'nock';
-
-import { Network, Token } from './types';
-import PriceFetcher from './price-fetcher';
 import { COINGECKO_BASEURL } from './constants';
-
+import PriceFetcher from './price-fetcher';
+import { Network, Token } from './types';
 
 /**
  * Token Prices (USD)
@@ -294,6 +292,6 @@ describe("Price Fetcher", () => {
 
   afterAll(() => {
     nock.cleanAll();
-  })  
+  })
 
 });

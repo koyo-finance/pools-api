@@ -1,6 +1,6 @@
-import { Token } from "./types";
-import PriceFetcher from './price-fetcher';
 import { updateTokens } from "./dynamodb";
+import PriceFetcher from './price-fetcher';
+import { Token } from "./types";
 
 const log = console.log;
 

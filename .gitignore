@@ -4,4 +4,6 @@ node_modules/
 dist/
 docker/
 cdk.out/
+yarn-error.log
 index.js
+jest.config.js

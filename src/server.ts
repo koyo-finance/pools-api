@@ -1,15 +1,14 @@
 require("dotenv").config();
+import AWS from 'aws-sdk';
 import debug from "debug";
 import express from "express";
-import { getSorSwap } from "./sor";
 import { getPool, getPools, getToken, getTokens } from "./dynamodb";
+import { getSorSwap } from "./sor";
 import { isValidChainId, localAWSConfig } from "./utils";
 
 const log = debug("balancer");
-
 const { PORT } = process.env;
 
-const AWS = require("aws-sdk");
 AWS.config.update(localAWSConfig);
 
 const port = PORT || 8090;

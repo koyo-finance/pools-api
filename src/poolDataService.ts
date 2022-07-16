@@ -10,7 +10,7 @@ export class DatabasePoolDataService implements PoolDataService {
     chainId;
     constructor(
         readonly config: DatabasePoolDataServiceConfig
-    ) { 
+    ) {
         this.chainId = config.chainId;
     }
 

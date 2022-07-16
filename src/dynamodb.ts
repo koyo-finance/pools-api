@@ -1,6 +1,6 @@
 /* Functions for writing and reading to DynamoDB database */
 import AWS from 'aws-sdk';
-import { Token, Pool } from './types';
+import { Pool, Token } from './types';
 
 const log = console.log;
 
@@ -157,16 +157,16 @@ export async function updateTokens(tokens: Token[]) {
 export async function createPoolsTable() {
   const params = {
     TableName : "pools",
-    KeySchema: [       
+    KeySchema: [
         { AttributeName: "id", KeyType: "HASH"},
         { AttributeName: "chainId", KeyType: "RANGE"},
     ],
-    AttributeDefinitions: [       
+    AttributeDefinitions: [
         { AttributeName: "id", AttributeType: "S" },
         { AttributeName: "chainId", AttributeType: "N" },
     ],
-    ProvisionedThroughput: {       
-        ReadCapacityUnits: 100, 
+    ProvisionedThroughput: {
+        ReadCapacityUnits: 100,
         WriteCapacityUnits: 100
     }
   };
@@ -177,20 +177,20 @@ export async function createPoolsTable() {
 export async function createTokensTable() {
   const params = {
     TableName : "tokens",
-    KeySchema: [       
+    KeySchema: [
         { AttributeName: "address", KeyType: "HASH"},
         { AttributeName: "chainId", KeyType: "RANGE"},
     ],
-    AttributeDefinitions: [       
+    AttributeDefinitions: [
         { AttributeName: "address", AttributeType: "S" },
         { AttributeName: "chainId", AttributeType: "N" },
     ],
-    ProvisionedThroughput: {       
-        ReadCapacityUnits: 100, 
+    ProvisionedThroughput: {
+        ReadCapacityUnits: 100,
         WriteCapacityUnits: 100
     }
   }
-  
+
   await createTable(params)
 }
 

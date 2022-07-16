@@ -1,5 +1,5 @@
-import { getPools } from '../src/dynamodb';
 import { isValidChainId } from 'utils';
+import { getPools } from '../src/dynamodb';
 
 export const handler = async (event: any = {}): Promise<any> => {
   const chainId = parseInt(event.pathParameters.chainId);
@@ -8,7 +8,7 @@ export const handler = async (event: any = {}): Promise<any> => {
   }
   if (!isValidChainId(chainId)) {
     return { statusCode: 404, body: `Error: ChainId ${chainId} does not exist`}
-  } 
+  }
 
   const corsHeaders = {
     "Access-Control-Allow-Headers" : "Content-Type",

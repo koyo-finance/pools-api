@@ -1,14 +1,14 @@
-import { BigNumber, ethers } from "ethers";
-import { Contract } from '@ethersproject/contracts';
 import { SwapTypes } from "@balancer-labs/sdk";
+import { Contract } from '@ethersproject/contracts';
+import { BigNumber, ethers } from "ethers";
 import { getToken } from "./dynamodb";
-import { Network, Token, Pool, NativeAssetAddress } from "./types";
+import { NativeAssetAddress, Network, Pool, Token } from "./types";
 
 const { INFURA_PROJECT_ID } = process.env;
 
 export const localAWSConfig = {
   accessKeyId: 'not-important',
-  secretAccessKey: 'not-important',  
+  secretAccessKey: 'not-important',
   region: 'local',
   endpoint: 'http://localhost:8000'
 }
@@ -109,7 +109,7 @@ export function getTheGraphURL(chainId: number): string {
     default:
       return 'https://api.thegraph.com/subgraphs/name/balancer-labs/balancer-v2';
   }
-  
+
 }
 
 export function isValidChainId(chainId: number): boolean {

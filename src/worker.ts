@@ -1,26 +1,26 @@
 /**
- * Script that runs on a schedule/webhook which pulls data from 
- * the graph / infura and pushes it into DynamoDB. 
+ * Script that runs on a schedule/webhook which pulls data from
+ * the graph / infura and pushes it into DynamoDB.
  */
 
 require("dotenv").config();
-import debug from "debug";
 import { JsonRpcProvider } from '@ethersproject/providers';
-import { Network } from "./types";
-import { fetchPoolsFromChain, fetchTokens, removeKnownTokens } from "./sor";
+import AWS from 'aws-sdk';
+import debug from "debug";
 import { getTokens, updatePools, updateTokens } from "./dynamodb";
-import { localAWSConfig, getInfuraUrl, getTokenAddressesFromPools  } from "./utils";
+import { fetchPoolsFromChain, fetchTokens, removeKnownTokens } from "./sor";
 import { updateTokenPrices } from "./tokens";
+import { Network } from "./types";
+import { getInfuraUrl, getTokenAddressesFromPools, localAWSConfig } from "./utils";
 
 const log = debug("balancer");
 
-const AWS = require("aws-sdk");
 AWS.config.update(localAWSConfig);
 
 const UPDATE_POOLS_INTERVAL = 500;
 const UPDATE_PRICES_INTERVAL = 60 * 1000;
 
-const lastBlockNumber = {} 
+const lastBlockNumber = {}
 
 function doWork() {
   log(`Working...`);

@@ -1,8 +1,8 @@
-import { getPlatformId, getNativeAssetAddress } from "./utils";
-import { NativeAssetAddress, Network, Token } from "./types";
 import { BigNumber } from "bignumber.js";
-import { COINGECKO_BASEURL, COINGECKO_MAX_TOKENS_PER_PAGE, COINGECKO_MAX_TPS } from "./constants";
 import fetch from 'isomorphic-fetch';
+import { COINGECKO_BASEURL, COINGECKO_MAX_TOKENS_PER_PAGE, COINGECKO_MAX_TPS } from "./constants";
+import { NativeAssetAddress, Network, Token } from "./types";
+import { getNativeAssetAddress, getPlatformId } from "./utils";
 
 const TOKEN_UPDATE_TIME = 60 * 15 * 1000; // 5 Minutes
 const TOKEN_RETRY_PRICE_DATA_TIME = 24 * 60 * 60 * 7 * 1000; // 1 Week
@@ -17,7 +17,7 @@ interface TokenData {
 
 interface CoinGeckoData {
   [key: string]: TokenData;
-} 
+}
 
 class HTTPError extends Error {
   code: number;
@@ -32,7 +32,7 @@ class PriceFetcher {
   nativeAssetPrices: string[];
   maxTPS: number;
   lastRateLimit: number;
-  rateLimitWaitTimeMS: number; 
+  rateLimitWaitTimeMS: number;
   onCompleteCallback: () => void | null;
 
   constructor(private abortOnRateLimit = false)  {
@@ -111,7 +111,7 @@ class PriceFetcher {
       err.code = response.status;
       throw err;
     }
-  
+
     const data = await response.json();
     return data;
   }
@@ -137,7 +137,7 @@ class PriceFetcher {
       err.code = 404;
       throw err;
     }
-  
+
     const tokenPriceInEth = data[token.address.toLowerCase()]["eth"];
     const ethPriceInToken = new BigNumber(1).div(tokenPriceInEth);
     if (nativeAssetAddress === NativeAssetAddress.ETH) {
@@ -171,7 +171,7 @@ class PriceFetcher {
   }
 
   /**
-   * Fetches the price of all native assets as a pre-load so that 
+   * Fetches the price of all native assets as a pre-load so that
    * token prices on their chain can be calculated accurately
    **/
   private async fetchNativeAssetPrices() {
@@ -184,7 +184,7 @@ class PriceFetcher {
         decimals: 18,
         price: null
       }
-        
+
       this.queue.push(token);
     }));
 

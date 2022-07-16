@@ -53,7 +53,7 @@ npm run init
 # NOTE: If the init command hangs, you may need to fix permissions on your dynamodb data folder. You can do this with:
 sudo chown -R $(whoami):docker ./docker
 
-# Run Worker 
+# Run Worker
 npm run worker
 
 # In another terminal, Run API Server
@@ -81,7 +81,7 @@ cdk bootstrap aws://$AWS_ACCOUNT_ID/$AWS_REGION
 Deploy / Redeploy all AWS Services to your account.
 
 ```sh
-npm run build # Compile the CDK index.ts to javascript, must be run after changes are made 
+npm run build # Compile the CDK index.ts to javascript, must be run after changes are made
 cdk deploy # Run CDK to create/update your infrastructure
 ```
 
@@ -158,11 +158,11 @@ You can POST the following JSON content to the endpoint to return smart order ro
     buyToken: string<Address>, # The address of the token you wish to buy
     orderKind: string<buy|sell>, # Either 'buy' or 'sell', described further below
     amount: int, # The amount in sellToken or buyToken that you wish to sell/buy
-    gasPrice: int, # The current gas price in wei, this is used to ensure your trade is most efficient considering the gas cost of performing multiple swaps. 
+    gasPrice: int, # The current gas price in wei, this is used to ensure your trade is most efficient considering the gas cost of performing multiple swaps.
 }
 ```
 
-Order Kind - Set to 'buy' to buy the exact amount of your `buyToken` and sell as little as possible to get that. Set to 'sell' to sell the exact amount of your `sellToken` and buy as much as you can with that. 
+Order Kind - Set to 'buy' to buy the exact amount of your `buyToken` and sell as little as possible to get that. Set to 'sell' to sell the exact amount of your `sellToken` and buy as much as you can with that.
 
 ### Smart Order Router Examples
 

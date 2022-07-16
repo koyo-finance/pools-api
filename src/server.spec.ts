@@ -1,13 +1,13 @@
+import AWS from 'aws-sdk';
 import { parseUnits } from 'ethers/lib/utils';
 import supertest from 'supertest';
-import { Network, SorRequest, SerializedSwapInfo, Token } from './types';
-import { createPoolsTable, createTokensTable, deleteTable, updateTokens, updatePools, isAlive, updateToken } from './dynamodb';
-import TOKENS from '../test/mocks/tokens.json';
 import POOLS from '../test/mocks/pools.json';
+import TOKENS from '../test/mocks/tokens.json';
+import { createPoolsTable, createTokensTable, deleteTable, isAlive, updatePools, updateToken, updateTokens } from './dynamodb';
 import server from './server';
+import { Network, SerializedSwapInfo, SorRequest, Token } from './types';
 import { localAWSConfig } from "./utils";
 
-const AWS = require("aws-sdk");
 AWS.config.update(localAWSConfig);
 
 beforeAll(async () => {
@@ -87,7 +87,7 @@ describe('server.ts', () => {
 
 
     describe("Happy Swaps", () => {
-      
+
       it('Should return BAL to DAI swap information', async () => {
         const sorRequest: SorRequest = {
           ...defaultSorRequest,
@@ -231,7 +231,7 @@ describe('server.ts', () => {
 
   });
 
-  
+
   describe('GET /tokens/:chainId', () => {
     it('Should return the tokens on Ethereum', async () => {
       await supertest(server)

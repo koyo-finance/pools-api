@@ -1,6 +1,6 @@
-import { getTokenAddressesFromPools } from "../src/utils";
 import { updatePools, updateTokens } from "../src/dynamodb";
 import { fetchPoolsFromChain, fetchTokens, removeKnownTokens } from "../src/sor";
+import { getTokenAddressesFromPools } from "../src/utils";
 
 export const handler = async (event: any = {}): Promise<any> => {
   const log = console.log;

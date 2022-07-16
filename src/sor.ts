@@ -1,14 +1,13 @@
-import { JsonRpcProvider } from '@ethersproject/providers';
 import { BalancerSDK, SwapInfo } from '@balancer-labs/sdk';
-import { Order, Token, Pool, SerializedSwapInfo } from "./types";
-import { 
-  getTokenInfo, 
-  orderKindToSwapType,
-  getInfuraUrl,
-} from "./utils";
-import { getToken } from "./dynamodb";
 import { BigNumber } from '@ethersproject/bignumber';
+import { JsonRpcProvider } from '@ethersproject/providers';
+import { getToken } from "./dynamodb";
 import { DatabasePoolDataService } from './poolDataService';
+import { Order, Pool, SerializedSwapInfo, Token } from "./types";
+import {
+  getInfuraUrl, getTokenInfo,
+  orderKindToSwapType
+} from "./utils";
 
 const log = console.log;
 
@@ -75,7 +74,7 @@ export async function getSorSwap(chainId: number, order: Order): Promise<Seriali
   const dbPoolDataService = new DatabasePoolDataService({
     chainId: chainId,
   });
-  
+
   const balancer = new BalancerSDK({
     network: chainId,
     rpcUrl: infuraUrl,
@@ -110,7 +109,7 @@ export async function getSorSwap(chainId: number, order: Order): Promise<Seriali
   const tokenOut = buyToken;
   const swapType = orderKindToSwapType(orderKind);
 
-  const swapOptions = { 
+  const swapOptions = {
     gasPrice: BigNumber.from(gasPrice)
   };
 
