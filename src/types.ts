@@ -1,16 +1,10 @@
-import { SubgraphPoolBase, SwapV2 } from '@balancer-labs/sdk';
-
-export const Network = {
-    MAINNET: 1,
-    KOVAN: 42,
-    POLYGON: 137,
-    ARBITRUM: 42161
-}
+import { SubgraphPoolBase, SwapV2 } from "@balancer-labs/sdk";
 
 export const NativeAssetAddress = {
     ETH: "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
-    MATIC: "0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0"
-}
+    MOVR: "0x98878b06940ae243284ca214f92bb71a2b032b8a",
+    MATIC: "0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0",
+};
 
 export interface Order {
     sellToken: string;
@@ -48,14 +42,13 @@ export interface SerializedSwapInfo {
 }
 
 export interface Pool extends SubgraphPoolBase {
-  chainId: number;
+    chainId: number;
 }
-
 
 export interface SorRequest {
     sellToken: string;
     buyToken: string;
-    orderKind: 'sell' | 'buy',
+    orderKind: "sell" | "buy";
     amount: string;
     gasPrice: string;
 }
