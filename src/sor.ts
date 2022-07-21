@@ -1,4 +1,4 @@
-import { SwapInfo } from "@balancer-labs/sor";
+import { SwapInfo, SwapOptions } from "@balancer-labs/sor";
 import { BigNumber } from "@ethersproject/bignumber";
 import { JsonRpcProvider } from "@ethersproject/providers";
 import { ChainId } from "@koyofinance/core-sdk";
@@ -129,37 +129,39 @@ export async function getSorSwap(
         )}`
     );
 
-    if (sellTokenDetails) {
-        exchange.sor.swapCostCalculator.setNativeAssetPriceInToken(
-            sellToken,
-            sellTokenDetails.price
-        );
-    } else {
-        log(`No price found for token ${sellToken}. Defaulting to 0.`);
-        exchange.sor.swapCostCalculator.setNativeAssetPriceInToken(
-            sellToken,
-            "0"
-        );
-    }
+    // if (sellTokenDetails) {
+    //     exchange.sor.swapCostCalculator.setNativeAssetPriceInToken(
+    //         sellToken,
+    //         sellTokenDetails.price
+    //     );
+    // } else {
+    //     log(`No price found for token ${sellToken}. Defaulting to 0.`);
+    //     exchange.sor.swapCostCalculator.setNativeAssetPriceInToken(
+    //         sellToken,
+    //         "0"
+    //     );
+    // }
 
-    if (buyTokenDetails) {
-        exchange.sor.swapCostCalculator.setNativeAssetPriceInToken(
-            buyToken,
-            buyTokenDetails.price
-        );
-    } else {
-        log(`No price found for token ${buyToken}. Defaulting to 0.`);
-        exchange.sor.swapCostCalculator.setNativeAssetPriceInToken(
-            buyToken,
-            "0"
-        );
-    }
+    // if (buyTokenDetails) {
+    //     exchange.sor.swapCostCalculator.setNativeAssetPriceInToken(
+    //         buyToken,
+    //         buyTokenDetails.price
+    //     );
+    // } else {
+    //     log(`No price found for token ${buyToken}. Defaulting to 0.`);
+    //     exchange.sor.swapCostCalculator.setNativeAssetPriceInToken(
+    //         buyToken,
+    //         "0"
+    //     );
+    // }
 
     const tokenIn = sellToken;
     const tokenOut = buyToken;
     const swapType = orderKindToSwapType(orderKind);
 
-    const swapOptions = {
+    const swapOptions: Partial<SwapOptions> = {
+        forceRefresh: true,
+        maxPools: 10,
         gasPrice: BigNumber.from(gasPrice),
     };
 
