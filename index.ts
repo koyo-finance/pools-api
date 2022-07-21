@@ -1,14 +1,12 @@
 require("dotenv").config();
 import { App, Duration, RemovalPolicy, Stack } from "aws-cdk-lib";
 import {
-    DomainName,
     IResource,
     LambdaIntegration,
     MockIntegration,
     PassthroughBehavior,
     RestApi
 } from "aws-cdk-lib/aws-apigateway";
-import { Certificate } from "aws-cdk-lib/aws-certificatemanager";
 import { AttributeType, Table } from "aws-cdk-lib/aws-dynamodb";
 import { Rule, Schedule } from "aws-cdk-lib/aws-events";
 import { LambdaFunction } from "aws-cdk-lib/aws-events-targets";
@@ -26,7 +24,6 @@ const {
     POLYGON_RPC,
     POOLS_API_DDB_READ_CAPACITY,
     POOLS_API_DDB_WRITE_CAPACITY,
-    DOMAIN_NAME,
 } = process.env;
 
 const READ_CAPACITY = POOLS_API_DDB_READ_CAPACITY || "10";
@@ -86,7 +83,7 @@ export class KoyoPoolsAPI extends Stack {
             },
             runtime: Runtime.NODEJS_14_X,
             timeout: Duration.seconds(15),
-            // reservedConcurrentExecutions: 0,
+            reservedConcurrentExecutions: 1,
         };
 
         const getPoolLambda = new NodejsFunction(this, "getPoolFunction", {
@@ -114,7 +111,7 @@ export class KoyoPoolsAPI extends Stack {
                 ...nodeJsFunctionProps,
                 memorySize: 2048,
                 timeout: Duration.seconds(60),
-                // reservedConcurrentExecutions: 1,
+                reservedConcurrentExecutions: 1,
             }
         );
 
@@ -206,19 +203,6 @@ export class KoyoPoolsAPI extends Stack {
         const gnosisOnChain = gnosis.addResource("{chainId}");
         gnosisOnChain.addMethod("POST", runSORIntegration);
         addCorsOptions(gnosis);
-
-        /**
-         * Subdomain
-         */
-        if (DOMAIN_NAME) {
-            const domainName = DOMAIN_NAME;
-            const domain = new DomainName(this, "domain-name", {
-                domainName,
-                certificate: new Certificate(this, "Cert", { domainName }),
-            });
-
-            domain.addBasePathMapping(api);
-        }
     }
 }
 

@@ -161,8 +161,8 @@ class PriceFetcher {
         const nativeAssetAddress = getNativeAssetAddress(token.chainId);
 
         if (
-            data[token.address.toLowerCase()] == null ||
-            data[token.address.toLowerCase()]["eth"] == null
+            data[token.address.toLowerCase()] === null ||
+            data[token.address.toLowerCase()]["eth"] === null
         ) {
             const err = new HTTPError("No price returned from Coingecko");
             err.code = 404;
